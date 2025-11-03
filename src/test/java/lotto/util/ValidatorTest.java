@@ -30,6 +30,14 @@ class ValidatorTest {
                 .hasMessageContaining("[ERROR] 구입 금액은 숫자여야 합니다.");
     }
 
+    @DisplayName("구입 금액이 Integer 범위를 초과하면 예외가 발생한다.")
+    @Test
+    void validatePurchaseAmount_Overflow() {
+        assertThatThrownBy(() -> Validator.validatePurchaseAmount("999999999999"))
+                .isInstanceOf(IllegalArgumentException.class)
+                .hasMessageContaining("[ERROR] 구입 금액은 숫자가 너무 큽니다 (Integer 범위 초과).");
+    }
+
     @DisplayName("구입 금액에 앞뒤 공백이 있어도 숫자로 변환되어야 한다.")
     @Test
     void validatePurchaseAmount_WithSpaces() {
@@ -81,12 +89,20 @@ class ValidatorTest {
                 .hasMessageContaining(expectedMessage);
     }
 
-    @DisplayName("당첨 번호에 숫자가 아닌 값이 포함되면 예외가 발생한다.")
+    @DisplayName("당첨 번호에 숫자 형식이 아닌 값이 포함되면 예외가 발생한다.")
     @Test
     void parseWinningNumbers_NotNumeric() {
         assertThatThrownBy(() -> Validator.parseWinningNumbers("1,2,3,4,5,a"))
                 .isInstanceOf(IllegalArgumentException.class)
                 .hasMessageContaining("[ERROR] 당첨 번호 형식이 올바르지 않습니다.");
+    }
+
+    @DisplayName("당첨 번호가 Integer 범위를 초과하면 예외가 발생한다.")
+    @Test
+    void parseWinningNumbers_Overflow() {
+        assertThatThrownBy(() -> Validator.parseWinningNumbers("1,2,3,4,5,999999999999"))
+                .isInstanceOf(IllegalArgumentException.class)
+                .hasMessageContaining("[ERROR] 당첨 번호는 숫자가 너무 큽니다 (Integer 범위 초과).");
     }
 
     @DisplayName("보너스 번호가 숫자가 아니면 예외가 발생한다.")
@@ -96,6 +112,15 @@ class ValidatorTest {
         assertThatThrownBy(() -> Validator.validateBonusNumber("a", winningLotto))
                 .isInstanceOf(IllegalArgumentException.class)
                 .hasMessageContaining("[ERROR] 보너스 번호는 숫자여야 합니다.");
+    }
+
+    @DisplayName("보너스 번호가 Integer 범위를 초과하면 예외가 발생한다.")
+    @Test
+    void validateBonusNumber_Overflow() {
+        Lotto winningLotto = new Lotto(List.of(1, 2, 3, 4, 5, 6));
+        assertThatThrownBy(() -> Validator.validateBonusNumber("999999999999", winningLotto))
+                .isInstanceOf(IllegalArgumentException.class)
+                .hasMessageContaining("[ERROR] 보너스 번호의 숫자가 너무 큽니다 (Integer 범위 초과).");
     }
 
     @DisplayName("보너스 번호가 1~45 범위를 벗어나면 예외가 발생한다.")
