@@ -49,4 +49,22 @@ class LottoTest {
 
         assertThat(lotto.contains(7)).isFalse();
     }
+
+    @DisplayName("다른 로또와 몇 개의 번호가 일치하는지 계산한다.")
+    @Test
+    void countMatch() {
+        Lotto myLotto = new Lotto(List.of(1, 2, 3, 4, 5, 6));
+        Lotto winningLotto = new Lotto(List.of(1, 2, 7, 8, 9, 10));
+
+        assertThat(myLotto.countMatch(winningLotto)).isEqualTo(2);
+    }
+
+    @DisplayName("일치하는 번호가 없으면 0을 반환한다.")
+    @Test
+    void countMatch_Zero() {
+        Lotto myLotto = new Lotto(List.of(1, 2, 3, 4, 5, 6));
+        Lotto winningLotto = new Lotto(List.of(7, 8, 9, 10, 11, 12));
+
+        assertThat(myLotto.countMatch(winningLotto)).isEqualTo(0);
+    }
 }
