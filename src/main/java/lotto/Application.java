@@ -23,6 +23,8 @@ public class Application {
 
             int bonusNumber = getBonusNumberWithValidation(winningLotto);
 
+            LottoResult result = lottoService.calculateResults(lottos, winningLotto, bonusNumber);
+
             // TODO
 
         } catch (IllegalArgumentException e) {
