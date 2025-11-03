@@ -47,7 +47,6 @@ class ValidatorTest {
     @DisplayName("보너스 번호가 숫자가 아니면 예외가 발생한다.")
     @Test
     void validateBonusNumber_NotNumeric() {
-        // 테스트를 위해 당첨 번호(Lotto) 객체를 생성
         Lotto winningLotto = new Lotto(List.of(1, 2, 3, 4, 5, 6));
         assertThatThrownBy(() -> Validator.validateBonusNumber("a", winningLotto))
                 .isInstanceOf(IllegalArgumentException.class)
@@ -61,7 +60,7 @@ class ValidatorTest {
 
         assertThatThrownBy(() -> Validator.validateBonusNumber("46", winningLotto))
                 .isInstanceOf(IllegalArgumentException.class)
-                .hasMessageContaining("[ERROR] 보너스 번호는 1부터 45 사이의 숫자여야 합니다.");
+                .hasMessageContaining("[ERROR] 로또 번호는 1부터 45 사이의 숫자여야 합니다.");
 
         assertThatThrownBy(() -> Validator.validateBonusNumber("0", winningLotto))
                 .isInstanceOf(IllegalArgumentException.class);
