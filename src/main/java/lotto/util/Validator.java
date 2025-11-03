@@ -11,7 +11,14 @@ public class Validator {
     private static final String ERROR_PREFIX = "[ERROR] ";
     private static final String WINNING_NUMBER_DELIMITER = ",";
 
+    private static void validateNotEmpty(String input) {
+        if (input == null || input.isBlank()) {
+            throw new IllegalArgumentException(ERROR_PREFIX + "입력값이 비어있습니다.");
+        }
+    }
+
     public static void validatePurchaseAmount(String input) {
+        validateNotEmpty(input);
         int amount = validateNumeric(input);
         validateMinAmount(amount);
         validateAmountUnit(amount);
@@ -19,7 +26,7 @@ public class Validator {
 
     private static int validateNumeric(String input) {
         try {
-            return Integer.parseInt(input);
+            return Integer.parseInt(input.trim());
         } catch (NumberFormatException e) {
             throw new IllegalArgumentException(ERROR_PREFIX + "구입 금액은 숫자여야 합니다.");
         }
@@ -38,6 +45,12 @@ public class Validator {
     }
 
     public static List<Integer> parseWinningNumbers(String input) {
+        validateNotEmpty(input);
+
+        if (input.endsWith(WINNING_NUMBER_DELIMITER)) {
+            throw new IllegalArgumentException(ERROR_PREFIX + "당첨 번호 형식이 올바르지 않습니다.");
+        }
+
         String[] numberStrings = input.split(WINNING_NUMBER_DELIMITER);
         return convertToNumbers(numberStrings);
     }
@@ -46,6 +59,10 @@ public class Validator {
         List<Integer> numbers = new ArrayList<>();
         for (String numberString : numberStrings) {
             try {
+                String trimmedString = numberString.trim();
+                if (trimmedString.isEmpty()) {
+                    throw new IllegalArgumentException(ERROR_PREFIX + "당첨 번호 형식이 올바르지 않습니다.");
+                }
                 numbers.add(Integer.parseInt(numberString.trim()));
             } catch (NumberFormatException e) {
                 throw new IllegalArgumentException(ERROR_PREFIX + "당첨 번호는 숫자여야 합니다.");
@@ -55,6 +72,7 @@ public class Validator {
     }
 
     public static int validateBonusNumber(String input, Lotto winningLotto) {
+        validateNotEmpty(input);
         int bonusNumber = validateNumericBonus(input);
         validateRange(bonusNumber);
         validateDuplicateWithWinningLotto(bonusNumber, winningLotto);
