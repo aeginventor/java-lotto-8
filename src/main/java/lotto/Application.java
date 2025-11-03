@@ -1,14 +1,28 @@
 package lotto;
 
 import camp.nextstep.edu.missionutils.Console;
+import java.util.List;
 
 public class Application {
+
+    private final LottoService lottoService = new LottoService();
+
     public static void main(String[] args) {
+        new Application().run();
+    }
+
+    private void run() {
         try {
             int purchaseAmount = getPurchaseAmountWithValidation();
-            // TODO
-        } catch (IllegalArgumentException e) {
 
+            List<Lotto> lottos = lottoService.issueLottos(purchaseAmount);
+
+            printLottos(lottos);
+
+            // TODO: 당첨 번호 입력 구현
+
+        } catch (IllegalArgumentException e) {
+            System.out.println(e.getMessage());
         }
     }
 
@@ -23,6 +37,14 @@ public class Application {
             } catch (IllegalArgumentException e) {
                 System.out.println(e.getMessage());
             }
+        }
+    }
+
+    private void printLottos(List<Lotto> lottos) {
+        System.out.println("\n" + lottos.size() + "개를 구매했습니다.");
+
+        for (Lotto lotto : lottos) {
+            System.out.println(lotto.toString());
         }
     }
 }
