@@ -1,21 +1,26 @@
 package lotto;
 
+import java.text.DecimalFormat;
 import java.util.Arrays;
 
 public enum Rank {
-    FIRST(6, 2_000_000_000L),
-    SECOND(5, 30_000_000L),
-    THIRD(5, 1_500_000L),
-    FOURTH(4, 50_000L),
-    FIFTH(3, 5_000L),
-    MISS(0, 0L);
+    FIRST(6, 2_000_000_000L, "6개 일치 (%s원)"),
+    SECOND(5, 30_000_000L, "5개 일치, 보너스 볼 일치 (%s원)"),
+    THIRD(5, 1_500_000L, "5개 일치 (%s원)"),
+    FOURTH(4, 50_000L, "4개 일치 (%s원)"),
+    FIFTH(3, 5_000L, "3개 일치 (%s원)"),
+    MISS(0, 0L, "");
+
+    private static final String PRIZE_FORMAT = ",##0";
 
     private final int matchCount;
     private final long prizeMoney;
+    private final String messageFormat;
 
     Rank(int matchCount, long prizeMoney) {
         this.matchCount = matchCount;
         this.prizeMoney = prizeMoney;
+        this.messageFormat = messageFormat;
     }
 
     public long getPrizeMoney() {
@@ -36,5 +41,15 @@ public enum Rank {
                 .filter(rank -> rank != SECOND && rank != THIRD)
                 .findFirst()
                 .orElse(MISS);
+    }
+
+    public String getMessage() {
+        if (this == MISS) {
+            return "MISS";
+        }
+        DecimalFormat decimalFormat = new DecimalFormat(PRIZE_FORMAT);
+        String formattedPrize = decimalFormat.format(prizeMoney);
+
+        return String.format(messageFormat, formattedPrize);
     }
 }
