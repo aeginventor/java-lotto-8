@@ -8,8 +8,6 @@ public class Validator {
     private static final int LOTTO_PRICE = 1000;
     private static final String ERROR_PREFIX = "[ERROR] ";
     private static final String WINNING_NUMBER_DELIMITER = ",";
-    private static final int MIN_LOTTO_NUMBER = 1;
-    private static final int MAX_LOTTO_NUMBER = 45;
 
     public static void validatePurchaseAmount(String input) {
         int amount = validateNumeric(input);
@@ -70,9 +68,9 @@ public class Validator {
     }
 
     private static void validateRange(int number) {
-        if (number < MIN_LOTTO_NUMBER || number > MAX_LOTTO_NUMBER) {
+        if (number < Lotto.MIN_LOTTO_NUMBER || number > Lotto.MAX_LOTTO_NUMBER) {
             throw new IllegalArgumentException(
-                    ERROR_PREFIX + "보너스 번호는 " + MIN_LOTTO_NUMBER + "부터 " + MAX_LOTTO_NUMBER + " 사이의 숫자여야 합니다.");
+                    ERROR_PREFIX + "보너스 번호는 " + Lotto.MIN_LOTTO_NUMBER + "부터 " + Lotto.MAX_LOTTO_NUMBER + " 사이의 숫자여야 합니다.");
         }
     }
 
