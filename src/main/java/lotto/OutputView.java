@@ -1,5 +1,6 @@
 package lotto;
 
+import java.text.DecimalFormat;
 import java.util.List;
 
 public class OutputView {
@@ -19,7 +20,7 @@ public class OutputView {
         }
     }
 
-    public void printStatistics(LottoResult result, String formattedProfitRate) {
+    public void printStatistics(LottoResult result, int purchaseAmount) {
         System.out.println("\n당첨 통계");
         System.out.println("---");
 
@@ -28,6 +29,12 @@ public class OutputView {
                     rank.getMessage() + " - " + result.getCount(rank) + "개"
             );
         }
+
+        double profitRate = result.calculateProfitRate(purchaseAmount);
+        String profitRateFormat = ",##0.0";
+        DecimalFormat decimalFormat = new DecimalFormat(profitRateFormat);
+        String formattedProfitRate = decimalFormat.format(profitRate);
+
         System.out.println("총 수익률은 " + formattedProfitRate + "%입니다.");
     }
 

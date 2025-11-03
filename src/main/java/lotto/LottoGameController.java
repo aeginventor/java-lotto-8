@@ -1,6 +1,5 @@
 package lotto;
 
-import java.text.DecimalFormat;
 import java.util.List;
 
 public class LottoGameController {
@@ -68,12 +67,6 @@ public class LottoGameController {
     }
 
     private void printStatistics(LottoResult result, int purchaseAmount) {
-        double profitRate = result.calculateProfitRate(purchaseAmount);
-
-        String profitRateFormat = ",##0.0";
-        DecimalFormat decimalFormat = new DecimalFormat(profitRateFormat);
-        String formattedProfitRate = decimalFormat.format(profitRate);
-
-        outputView.printStatistics(result, formattedProfitRate);
+        outputView.printStatistics(result, purchaseAmount);
     }
 }
