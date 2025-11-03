@@ -19,7 +19,9 @@ public class Application {
 
             printLottos(lottos);
 
-            // TODO: 당첨 번호 입력 구현
+            Lotto winningLotto = getWinningLottoWithValidation();
+
+            // TODO
 
         } catch (IllegalArgumentException e) {
             System.out.println(e.getMessage());
@@ -45,6 +47,21 @@ public class Application {
 
         for (Lotto lotto : lottos) {
             System.out.println(lotto.toString());
+        }
+    }
+
+    private Lotto getWinningLottoWithValidation() {
+        while (true) {
+            System.out.println("\n당첨 번호를 입력해 주세요.");
+            String input = Console.readLine();
+            try {
+                List<Integer> numbers = Validator.parseWinningNumbers(input);
+
+                return new Lotto(numbers);
+
+            } catch (IllegalArgumentException e) {
+                System.out.println(e.getMessage());
+            }
         }
     }
 }
