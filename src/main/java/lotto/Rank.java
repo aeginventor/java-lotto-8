@@ -17,7 +17,7 @@ public enum Rank {
     private final long prizeMoney;
     private final String messageFormat;
 
-    Rank(int matchCount, long prizeMoney) {
+    Rank(int matchCount, long prizeMoney, String messageFormat) {
         this.matchCount = matchCount;
         this.prizeMoney = prizeMoney;
         this.messageFormat = messageFormat;
