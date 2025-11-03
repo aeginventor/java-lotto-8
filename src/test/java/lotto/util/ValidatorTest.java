@@ -86,7 +86,7 @@ class ValidatorTest {
     void parseWinningNumbers_NotNumeric() {
         assertThatThrownBy(() -> Validator.parseWinningNumbers("1,2,3,4,5,a"))
                 .isInstanceOf(IllegalArgumentException.class)
-                .hasMessageContaining("[ERROR] 당첨 번호는 숫자여야 합니다.");
+                .hasMessageContaining("[ERROR] 당첨 번호 형식이 올바르지 않습니다.");
     }
 
     @DisplayName("보너스 번호가 숫자가 아니면 예외가 발생한다.")
