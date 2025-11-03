@@ -33,4 +33,12 @@ class ValidatorTest {
         assertThatThrownBy(() -> Validator.validatePurchaseAmount("500"))
                 .isInstanceOf(IllegalArgumentException.class); // 1000원 단위 에러가 먼저 발생
     }
+
+    @DisplayName("당첨 번호에 숫자가 아닌 값이 포함되면 예외가 발생한다.")
+    @Test
+    void parseWinningNumbers_NotNumeric() {
+        assertThatThrownBy(() -> Validator.parseWinningNumbers("1,2,3,4,5,a"))
+                .isInstanceOf(IllegalArgumentException.class)
+                .hasMessageContaining("[ERROR] 당첨 번호는 숫자여야 합니다.");
+    }
 }
