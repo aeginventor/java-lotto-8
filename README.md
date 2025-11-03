@@ -25,7 +25,6 @@
 - [ ] 예외 발생 시 `[ERROR]` 메시지 출력 후, 해당 입력부터 다시 받기
 
 ## Phase 2: 리팩토링 및 개선
-
 - [ ] MVC 패턴 적용 (Application 클래스 책임 분리)
   - [ ] `InputView`: 사용자 입력(UI) 책임 분리
   - [ ] `OutputView`: 콘솔 출력(UI) 책임 분리
@@ -34,3 +33,10 @@
   - [ ] `Lotto`와 `Validator` 간의 로또 번호 범위(1~45) 상수 및 로직 중복 제거
   - [ ] `LottoService`, `Validator`에서 중복 상수 제거
   - [ ] `Lotto`와 `Validator` 간의 `validateRange` 로직 및 에러 메시지 통합
+
+## Phase 3: 최종 개선
+- [ ] 단일 책임 원칙(SRP) 점검 및 리팩토링
+  - [ ] Controller가 View의 책임을 가지던 문제(수익률 포맷팅) 해결
+- [ ] 패키지 구조 개선 (MVC 및 도메인 분리)
+  - [ ] `main` 소스 코드를 `controller`, `domain`, `service`, `util`, `view` 패키지로 분리
+  - [ ] `test` 소스 코드를 `main` 패키지 구조와 동일하게 분리
