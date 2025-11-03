@@ -1,9 +1,13 @@
 package lotto;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class Validator {
 
     private static final int LOTTO_PRICE = 1000;
     private static final String ERROR_PREFIX = "[ERROR] ";
+    private static final String WINNING_NUMBER_DELIMITER = ",";
 
     public static void validatePurchaseAmount(String input) {
         int amount = validateNumeric(input);
@@ -29,5 +33,22 @@ public class Validator {
         if (amount % LOTTO_PRICE != 0) {
             throw new IllegalArgumentException(ERROR_PREFIX + "구입 금액은 1,000원 단위여야 합니다.");
         }
+    }
+
+    public static List<Integer> parseWinningNumbers(String input) {
+        String[] numberStrings = input.split(WINNING_NUMBER_DELIMITER);
+        return convertToNumbers(numberStrings);
+    }
+
+    private static List<Integer> convertToNumbers(String[] numberStrings) {
+        List<Integer> numbers = new ArrayList<>();
+        for (String numberString : numberStrings) {
+            try {
+                numbers.add(Integer.parseInt(numberString.trim()));
+            } catch (NumberFormatException e) {
+                throw new IllegalArgumentException(ERROR_PREFIX + "당첨 번호는 숫자여야 합니다.");
+            }
+        }
+        return numbers;
     }
 }
