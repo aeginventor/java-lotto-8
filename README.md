@@ -40,3 +40,7 @@
 - [ ] 패키지 구조 개선 (MVC 및 도메인 분리)
   - [ ] `main` 소스 코드를 `controller`, `domain`, `service`, `util`, `view` 패키지로 분리
   - [ ] `test` 소스 코드를 `main` 패키지 구조와 동일하게 분리
+- [ ] 추가 엣지 케이스
+  - [ ] `Validator`: 모든 입력에 대해 `null` 또는 빈 값("") 검증 추가
+  - [ ] `Validator`: 구매 금액 입력 시 앞뒤 공백(`trim`) 허용
+  - [ ] `Validator`: 당첨 번호 입력 시 쉼표(,)로 끝나는 경우 예외 처리
