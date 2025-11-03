@@ -65,6 +65,22 @@ class ValidatorTest {
                 .hasMessageContaining("[ERROR] 당첨 번호 형식이 올바르지 않습니다.");
     }
 
+    @DisplayName("당첨 번호에 쉼표(,) 외의 구분자가 포함되면 예외가 발생한다.")
+    @Test
+    void parseWinningNumbers_InvalidDelimiters() {
+        String expectedMessage = "[ERROR] 당첨 번호 형식이 올바르지 않습니다.";
+
+        // 케이스 1: 다른 구분자 사용
+        assertThatThrownBy(() -> Validator.parseWinningNumbers("1.2.3.4.5.6"))
+                .isInstanceOf(IllegalArgumentException.class)
+                .hasMessageContaining(expectedMessage);
+
+        // 케이스 2: 쉼표와 다른 구분자 혼용
+        assertThatThrownBy(() -> Validator.parseWinningNumbers("1,2,3;4,5,6"))
+                .isInstanceOf(IllegalArgumentException.class)
+                .hasMessageContaining(expectedMessage);
+    }
+
     @DisplayName("당첨 번호에 숫자가 아닌 값이 포함되면 예외가 발생한다.")
     @Test
     void parseWinningNumbers_NotNumeric() {
