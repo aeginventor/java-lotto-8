@@ -21,6 +21,8 @@ public class Application {
 
             Lotto winningLotto = getWinningLottoWithValidation();
 
+            int bonusNumber = getBonusNumberWithValidation(winningLotto);
+
             // TODO
 
         } catch (IllegalArgumentException e) {
@@ -59,6 +61,18 @@ public class Application {
 
                 return new Lotto(numbers);
 
+            } catch (IllegalArgumentException e) {
+                System.out.println(e.getMessage());
+            }
+        }
+    }
+
+    private int getBonusNumberWithValidation(Lotto winningLotto) {
+        while (true) {
+            System.out.println("\n보너스 번호를 입력해 주세요.");
+            String input = Console.readLine();
+            try {
+                return Validator.validateBonusNumber(input, winningLotto);
             } catch (IllegalArgumentException e) {
                 System.out.println(e.getMessage());
             }
