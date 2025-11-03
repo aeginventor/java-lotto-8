@@ -45,4 +45,7 @@
   - [x] `Validator`: 구매 금액 입력 시 앞뒤 공백(`trim`) 허용
   - [x] `Validator`: 당첨 번호 입력 시 쉼표(,)로 끝나는 경우 예외 처리
   - [x] `Validator`: 당첨 번호 입력 시 쉼표(,) 외의 구분자(;)나 포맷(.)을 사용한 경우 정규식(Regex)으로 검증
-  - [ ] `Validator`: 숫자 입력 시 `Integer` 범위를 초과하는 경우(Overflow) 명확한 에러 메시지 제공
+- [ ] 통합 테스트 엣지 케이스 검증
+  - [ ] `ApplicationTest`: 구입 금액 입력 예외 발생 시, 재입력 받는지 검증
+  - [ ] `ApplicationTest`: 당첨 번호 입력 예외 발생 시, 재입력 받는지 검증
+  - [ ] `ApplicationTest`: 보너스 번호 입력 예외 발생 시, 재입력 받는지 검증
