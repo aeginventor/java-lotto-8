@@ -1,9 +1,19 @@
 package lotto;
 
 import camp.nextstep.edu.missionutils.Console;
+
+import java.text.DecimalFormat;
 import java.util.List;
 
 public class Application {
+
+    private static final List<Rank> DISPLAY_RANKS = List.of(
+            Rank.FIFTH,
+            Rank.FOURTH,
+            Rank.THIRD,
+            Rank.SECOND,
+            Rank.FIRST
+    );
 
     private final LottoService lottoService = new LottoService();
 
@@ -25,7 +35,7 @@ public class Application {
 
             LottoResult result = lottoService.calculateResults(lottos, winningLotto, bonusNumber);
 
-            // TODO
+            printStatistics(result, purchaseAmount);
 
         } catch (IllegalArgumentException e) {
             System.out.println(e.getMessage());
@@ -79,5 +89,23 @@ public class Application {
                 System.out.println(e.getMessage());
             }
         }
+    }
+
+    private void printStatistics(LottoResult result, int purchaseAmount) {
+        double profitRate = result.calculateProfitRate(purchaseAmount);
+        String profitRateFormat = ",##0.0";
+        DecimalFormat decimalFormat = new DecimalFormat(profitRateFormat);
+        String formattedProfitRate = decimalFormat.format(profitRate);
+
+        System.out.println("\n당첨 통계");
+        System.out.println("---");
+
+        for (Rank rank : DISPLAY_RANKS) {
+            System.out.println(
+                    rank.getMessage() + " - " + result.getCount(rank) + "개"
+            );
+        }
+
+        System.out.println("총 수익률은 " + formattedProfitRate + "%입니다.");
     }
 }
