@@ -31,4 +31,20 @@ public class LottoService {
         );
         return new Lotto(numbers);
     }
+
+    public LottoResult calculateResults(List<Lotto> userLottos, Lotto winningLotto, int bonusNumber) {
+        LottoResult lottoResult = new LottoResult();
+
+        for (Lotto userLotto : userLottos) {
+            Rank rank = determineRank(userLotto, winningLotto, bonusNumber);
+            lottoResult.add(rank);
+        }
+        return lottoResult;
+    }
+
+    private Rank determineRank(Lotto userLotto, Lotto winningLotto, int bonusNumber) {
+        int matchCount = userLotto.countMatch(winningLotto);
+        boolean bonusMatch = userLotto.contains(bonusNumber);
+        return Rank.valueOf(matchCount, bonusMatch);
+    }
 }

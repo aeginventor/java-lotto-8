@@ -48,4 +48,3 @@ class LottoServiceTest {
         assertThat(result.getCount(Rank.MISS)).isEqualTo(1);
     }
 }
-}
