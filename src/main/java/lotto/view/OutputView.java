@@ -1,4 +1,8 @@
-package lotto;
+package lotto.view;
+
+import lotto.domain.Lotto;
+import lotto.domain.LottoResult;
+import lotto.domain.Rank;
 
 import java.text.DecimalFormat;
 import java.util.List;

@@ -1,4 +1,11 @@
-package lotto;
+package lotto.controller;
+
+import lotto.domain.Lotto;
+import lotto.domain.LottoResult;
+import lotto.service.LottoService;
+import lotto.util.Validator;
+import lotto.view.InputView;
+import lotto.view.OutputView;
 
 import java.util.List;
 
