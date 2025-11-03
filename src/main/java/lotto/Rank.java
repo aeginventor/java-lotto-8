@@ -1,5 +1,7 @@
 package lotto;
 
+import java.util.Arrays;
+
 public enum Rank {
     FIRST(6, 2_000_000_000L),
     SECOND(5, 30_000_000L),
@@ -21,12 +23,7 @@ public enum Rank {
     }
 
     public static Rank valueOf(int matchCount, boolean bonusMatch) {
-        // 6개 일치 (1등)
-        if (matchCount == 6) {
-            return FIRST;
-        }
-
-        // 5개 일치 (2등 또는 3등)
+        // 2등/3등 분기 로직
         if (matchCount == 5) {
             if (bonusMatch) {
                 return SECOND;
@@ -34,17 +31,10 @@ public enum Rank {
             return THIRD;
         }
 
-        // 4개 일치 (4등)
-        if (matchCount == 4) {
-            return FOURTH;
-        }
-
-        // 3개 일치 (5등)
-        if (matchCount == 3) {
-            return FIFTH;
-        }
-
-        // 꽝
-        return MISS;
+        return Arrays.stream(Rank.values())
+                .filter(rank -> rank.matchCount == matchCount)
+                .filter(rank -> rank != SECOND && rank != THIRD)
+                .findFirst()
+                .orElse(MISS);
     }
 }
