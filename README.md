@@ -32,3 +32,5 @@
   - [ ] `LottoGameController`: 게임 흐름 제어 및 예외 처리 책임 분리
 - [ ] 도메인/검증 로직 중복 제거
   - [ ] `Lotto`와 `Validator` 간의 로또 번호 범위(1~45) 상수 및 로직 중복 제거
+  - [ ] `LottoService`, `Validator`에서 중복 상수 제거
+  - [ ] `Lotto`와 `Validator` 간의 `validateRange` 로직 및 에러 메시지 통합
