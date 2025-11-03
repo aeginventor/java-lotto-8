@@ -31,7 +31,12 @@ public class Validator {
         try {
             return Integer.parseInt(input.trim());
         } catch (NumberFormatException e) {
-            throw new IllegalArgumentException(ERROR_PREFIX + "구입 금액은 숫자여야 합니다.");
+            try {
+                Long.parseLong(input.trim());
+                throw new IllegalArgumentException(ERROR_PREFIX + "구입 금액의 숫자가 너무 큽니다 (Integer 범위 초과).");
+            } catch (NumberFormatException longE) {
+                throw new IllegalArgumentException(ERROR_PREFIX + "구입 금액은 숫자여야 합니다.");
+            }
         }
     }
 
@@ -65,11 +70,12 @@ public class Validator {
     private static List<Integer> convertToNumbers(String[] numberStrings) {
         List<Integer> numbers = new ArrayList<>();
         for (String numberString : numberStrings) {
+            String trimmedString = numberString.trim();
+
             try {
-                String trimmedString = numberString.trim();
                 numbers.add(Integer.parseInt(trimmedString));
             } catch (NumberFormatException e) {
-                throw new IllegalArgumentException(ERROR_PREFIX + "당첨 번호는 숫자여야 합니다.");
+                throw new IllegalArgumentException(ERROR_PREFIX + "당첨 번호의 숫자가 너무 큽니다 (Integer 범위 초과).");
             }
         }
         return numbers;
@@ -87,7 +93,12 @@ public class Validator {
         try {
             return Integer.parseInt(input.trim());
         } catch (NumberFormatException e) {
-            throw new IllegalArgumentException(ERROR_PREFIX + "보너스 번호는 숫자여야 합니다.");
+            try {
+                Long.parseLong(input.trim());
+                throw new IllegalArgumentException(ERROR_PREFIX + "보너스 번호의 숫자가 너무 큽니다 (Integer 범위 초과).");
+            } catch (NumberFormatException longE) {
+                throw new IllegalArgumentException(ERROR_PREFIX + "보너스 번호는 숫자여야 합니다.");
+            }
         }
     }
 

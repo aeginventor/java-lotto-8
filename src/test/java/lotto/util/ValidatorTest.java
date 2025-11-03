@@ -35,7 +35,7 @@ class ValidatorTest {
     void validatePurchaseAmount_Overflow() {
         assertThatThrownBy(() -> Validator.validatePurchaseAmount("999999999999"))
                 .isInstanceOf(IllegalArgumentException.class)
-                .hasMessageContaining("[ERROR] 구입 금액은 숫자가 너무 큽니다 (Integer 범위 초과).");
+                .hasMessageContaining("[ERROR] 구입 금액의 숫자가 너무 큽니다 (Integer 범위 초과).");
     }
 
     @DisplayName("구입 금액에 앞뒤 공백이 있어도 숫자로 변환되어야 한다.")
@@ -102,7 +102,7 @@ class ValidatorTest {
     void parseWinningNumbers_Overflow() {
         assertThatThrownBy(() -> Validator.parseWinningNumbers("1,2,3,4,5,999999999999"))
                 .isInstanceOf(IllegalArgumentException.class)
-                .hasMessageContaining("[ERROR] 당첨 번호는 숫자가 너무 큽니다 (Integer 범위 초과).");
+                .hasMessageContaining("[ERROR] 당첨 번호의 숫자가 너무 큽니다 (Integer 범위 초과).");
     }
 
     @DisplayName("보너스 번호가 숫자가 아니면 예외가 발생한다.")
