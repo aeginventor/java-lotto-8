@@ -51,4 +51,27 @@ public class Validator {
         }
         return numbers;
     }
+
+    public static int validateBonusNumber(String input, Lotto winningLotto) {
+        int bonusNumber;
+
+        try {
+            bonusNumber = Integer.parseInt(input.trim());
+        } catch (NumberFormatException e) {
+            throw new IllegalArgumentException(ERROR_PREFIX + "보너스 번호는 숫자여야 합니다.");
+        }
+
+        int MIN_LOTTO_NUMBER = 1;
+        int MAX_LOTTO_NUMBER = 45;
+        if (bonusNumber < MIN_LOTTO_NUMBER || bonusNumber > MAX_LOTTO_NUMBER) {
+            throw new IllegalArgumentException(
+                    ERROR_PREFIX + "보너스 번호는 " + MIN_LOTTO_NUMBER + "부터 " + MAX_LOTTO_NUMBER + " 사이의 숫자여야 합니다.");
+        }
+
+        if (winningLotto.contains(bonusNumber)) {
+            throw new IllegalArgumentException(ERROR_PREFIX + "보너스 번호는 당첨 번호와 중복될 수 없습니다.");
+        }
+
+        return bonusNumber;
+    }
 }
