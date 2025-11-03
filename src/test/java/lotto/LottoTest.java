@@ -37,7 +37,16 @@ class LottoTest {
     void lottoNumbersShouldBeSorted() {
         Lotto lotto = new Lotto(List.of(6, 5, 4, 3, 2, 1));
 
-        // toString()이 정렬된 문자열을 반환하는지 검사
         assertThat(lotto.toString()).isEqualTo("[1, 2, 3, 4, 5, 6]");
+    }
+
+    @DisplayName("로또 번호가 특정 숫자를 포함하고 있는지 확인할 수 있다.")
+    @Test
+    void containsNumber() {
+        Lotto lotto = new Lotto(List.of(1, 2, 3, 4, 5, 6));
+
+        assertThat(lotto.contains(6)).isTrue();
+
+        assertThat(lotto.contains(7)).isFalse();
     }
 }
