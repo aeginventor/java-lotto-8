@@ -10,12 +10,32 @@ import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 class ValidatorTest {
 
+    @DisplayName("입력값이 null이거나 비어있으면 예외가 발생한다.")
+    @Test
+    void validateInput_NullOrEmpty() {
+        assertThatThrownBy(() -> Validator.validatePurchaseAmount(null))
+                .isInstanceOf(IllegalArgumentException.class)
+                .hasMessageContaining("[ERROR] 입력값이 비어있습니다.");
+
+        assertThatThrownBy(() -> Validator.validatePurchaseAmount(""))
+                .isInstanceOf(IllegalArgumentException.class)
+                .hasMessageContaining("[ERROR] 입력값이 비어있습니다.");
+    }
+
     @DisplayName("구입 금액이 숫자가 아니면 예외가 발생한다.")
     @Test
     void validatePurchaseAmount_NotNumeric() {
         assertThatThrownBy(() -> Validator.validatePurchaseAmount("1000j"))
                 .isInstanceOf(IllegalArgumentException.class)
                 .hasMessageContaining("[ERROR] 구입 금액은 숫자여야 합니다.");
+    }
+
+    @DisplayName("구입 금액에 앞뒤 공백이 있어도 숫자로 변환되어야 한다.")
+    @Test
+    void validatePurchaseAmount_WithSpaces() {
+        // 이 테스트는 예외가 발생하지 않아야 통과
+        Validator.validatePurchaseAmount(" 1000");
+        Validator.validatePurchaseAmount("1000 ");
     }
 
     @DisplayName("구입 금액이 1,000원 단위가 아니면 예외가 발생한다.")
@@ -35,6 +55,14 @@ class ValidatorTest {
 
         assertThatThrownBy(() -> Validator.validatePurchaseAmount("500"))
                 .isInstanceOf(IllegalArgumentException.class); // 1000원 단위 에러가 먼저 발생
+    }
+
+    @DisplayName("당첨 번호 입력이 쉼표(,)로 끝나면 예외가 발생한다.")
+    @Test
+    void parseWinningNumbers_EndsWithDelimiter() {
+        assertThatThrownBy(() -> Validator.parseWinningNumbers("1,2,3,4,5,"))
+                .isInstanceOf(IllegalArgumentException.class)
+                .hasMessageContaining("[ERROR] 당첨 번호 형식이 올바르지 않습니다.");
     }
 
     @DisplayName("당첨 번호에 숫자가 아닌 값이 포함되면 예외가 발생한다.")
