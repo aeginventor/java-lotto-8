@@ -3,6 +3,8 @@ package lotto;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
+import java.util.List;
+
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 class ValidatorTest {
@@ -40,5 +42,38 @@ class ValidatorTest {
         assertThatThrownBy(() -> Validator.parseWinningNumbers("1,2,3,4,5,a"))
                 .isInstanceOf(IllegalArgumentException.class)
                 .hasMessageContaining("[ERROR] 당첨 번호는 숫자여야 합니다.");
+    }
+
+    @DisplayName("보너스 번호가 숫자가 아니면 예외가 발생한다.")
+    @Test
+    void validateBonusNumber_NotNumeric() {
+        // 테스트를 위해 당첨 번호(Lotto) 객체를 생성
+        Lotto winningLotto = new Lotto(List.of(1, 2, 3, 4, 5, 6));
+        assertThatThrownBy(() -> Validator.validateBonusNumber("a", winningLotto))
+                .isInstanceOf(IllegalArgumentException.class)
+                .hasMessageContaining("[ERROR] 보너스 번호는 숫자여야 합니다.");
+    }
+
+    @DisplayName("보너스 번호가 1~45 범위를 벗어나면 예외가 발생한다.")
+    @Test
+    void validateBonusNumber_OutOfRange() {
+        Lotto winningLotto = new Lotto(List.of(1, 2, 3, 4, 5, 6));
+
+        assertThatThrownBy(() -> Validator.validateBonusNumber("46", winningLotto))
+                .isInstanceOf(IllegalArgumentException.class)
+                .hasMessageContaining("[ERROR] 보너스 번호는 1부터 45 사이의 숫자여야 합니다.");
+
+        assertThatThrownBy(() -> Validator.validateBonusNumber("0", winningLotto))
+                .isInstanceOf(IllegalArgumentException.class);
+    }
+
+    @DisplayName("보너스 번호가 당첨 번호와 중복되면 예외가 발생한다.")
+    @Test
+    void validateBonusNumber_DuplicateWithWinningNumbers() {
+        Lotto winningLotto = new Lotto(List.of(1, 2, 3, 4, 5, 6));
+
+        assertThatThrownBy(() -> Validator.validateBonusNumber("6", winningLotto))
+                .isInstanceOf(IllegalArgumentException.class)
+                .hasMessageContaining("[ERROR] 보너스 번호는 당첨 번호와 중복될 수 없습니다.");
     }
 }
