@@ -67,13 +67,13 @@ public class Validator {
         }
     }
 
-    private static List<Integer> convertToNumbers(String[] numberStrings) {
+    private static List<Integer> convertToNumbers(String[] numberTokens) {
         List<Integer> numbers = new ArrayList<>();
-        for (String numberString : numberStrings) {
-            String trimmedString = numberString.trim();
+        for (String numberToken : numberTokens) {
+            String trimmedToken = numberToken.trim();
 
             try {
-                numbers.add(Integer.parseInt(trimmedString));
+                numbers.add(Integer.parseInt(trimmedToken));
             } catch (NumberFormatException e) {
                 throw new IllegalArgumentException(ERROR_PREFIX + "당첨 번호의 숫자가 너무 큽니다 (Integer 범위 초과).");
             }

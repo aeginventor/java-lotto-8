@@ -36,8 +36,8 @@ public class OutputView {
 
         double profitRate = result.calculateProfitRate(purchaseAmount);
         String profitRateFormat = ",##0.0";
-        DecimalFormat decimalFormat = new DecimalFormat(profitRateFormat);
-        String formattedProfitRate = decimalFormat.format(profitRate);
+        DecimalFormat formatter = new DecimalFormat(profitRateFormat);
+        String formattedProfitRate = formatter.format(profitRate);
 
         System.out.println("총 수익률은 " + formattedProfitRate + "%입니다.");
     }

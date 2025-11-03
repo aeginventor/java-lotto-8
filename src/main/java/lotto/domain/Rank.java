@@ -47,8 +47,8 @@ public enum Rank {
         if (this == MISS) {
             return "MISS";
         }
-        DecimalFormat decimalFormat = new DecimalFormat(PRIZE_FORMAT);
-        String formattedPrize = decimalFormat.format(prizeMoney);
+        DecimalFormat formatter = new DecimalFormat(PRIZE_FORMAT);
+        String formattedPrize = formatter.format(prizeMoney);
 
         return String.format(messageFormat, formattedPrize);
     }
