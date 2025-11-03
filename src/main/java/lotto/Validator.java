@@ -68,10 +68,7 @@ public class Validator {
     }
 
     private static void validateRange(int number) {
-        if (number < Lotto.MIN_LOTTO_NUMBER || number > Lotto.MAX_LOTTO_NUMBER) {
-            throw new IllegalArgumentException(
-                    ERROR_PREFIX + "보너스 번호는 " + Lotto.MIN_LOTTO_NUMBER + "부터 " + Lotto.MAX_LOTTO_NUMBER + " 사이의 숫자여야 합니다.");
-        }
+        Lotto.validateNumberRange(number);
     }
 
     private static void validateDuplicateWithWinningLotto(int bonusNumber, Lotto winningLotto) {
