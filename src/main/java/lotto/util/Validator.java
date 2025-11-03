@@ -4,12 +4,15 @@ import lotto.domain.Lotto;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.regex.Pattern;
 
 public class Validator {
 
     private static final int LOTTO_PRICE = 1000;
     private static final String ERROR_PREFIX = "[ERROR] ";
     private static final String WINNING_NUMBER_DELIMITER = ",";
+    private static final String WINNING_NUMBER_FORMAT_REGEX = "^[0-9]+(,[0-9]+)*$";
+    private static final Pattern WINNING_NUMBER_PATTERN = Pattern.compile(WINNING_NUMBER_FORMAT_REGEX);
 
     private static void validateNotEmpty(String input) {
         if (input == null || input.isBlank()) {
@@ -47,12 +50,16 @@ public class Validator {
     public static List<Integer> parseWinningNumbers(String input) {
         validateNotEmpty(input);
 
-        if (input.endsWith(WINNING_NUMBER_DELIMITER)) {
-            throw new IllegalArgumentException(ERROR_PREFIX + "당첨 번호 형식이 올바르지 않습니다.");
-        }
+        validateWinningNumberFormat(input);
 
         String[] numberStrings = input.split(WINNING_NUMBER_DELIMITER);
         return convertToNumbers(numberStrings);
+    }
+
+    private static void validateWinningNumberFormat(String input) {
+        if (!WINNING_NUMBER_PATTERN.matcher(input).matches()) {
+            throw new IllegalArgumentException(ERROR_PREFIX + "당첨 번호 형식이 올바르지 않습니다.");
+        }
     }
 
     private static List<Integer> convertToNumbers(String[] numberStrings) {
@@ -60,10 +67,7 @@ public class Validator {
         for (String numberString : numberStrings) {
             try {
                 String trimmedString = numberString.trim();
-                if (trimmedString.isEmpty()) {
-                    throw new IllegalArgumentException(ERROR_PREFIX + "당첨 번호 형식이 올바르지 않습니다.");
-                }
-                numbers.add(Integer.parseInt(numberString.trim()));
+                numbers.add(Integer.parseInt(trimmedString));
             } catch (NumberFormatException e) {
                 throw new IllegalArgumentException(ERROR_PREFIX + "당첨 번호는 숫자여야 합니다.");
             }
