@@ -30,4 +30,13 @@ class LottoTest {
         assertThatThrownBy(() -> new Lotto(List.of(0, 1, 2, 3, 4, 5)))
                 .isInstanceOf(IllegalArgumentException.class);
     }
+
+    @DisplayName("로또 번호가 오름차순으로 정렬되어야 한다.")
+    @Test
+    void lottoNumbersShouldBeSorted() {
+        Lotto lotto = new Lotto(List.of(6, 5, 4, 3, 2, 1));
+
+        // toString()이 정렬된 문자열을 반환하는지 검사
+        assertThat(lotto.toString()).isEqualTo("[1, 2, 3, 4, 5, 6]");
+    }
 }
